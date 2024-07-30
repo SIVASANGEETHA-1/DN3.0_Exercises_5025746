@@ -1,0 +1,113 @@
+***************Exercise 3: Sorting Customer Orders*****************
+
+Step 1: Understand Sorting Algorithms
+
+Sorting Algorithms:
+
+There are several sorting algorithms, each with its own strengths and weaknesses. Here are four common sorting algorithms:
+
+Bubble Sort: Bubble sort is a simple sorting algorithm that works by repeatedly iterating through the array and swapping adjacent elements if they are in the wrong order. This process continues until the array is sorted.
+Insertion Sort: Insertion sort is a sorting algorithm that works by iterating through the array one element at a time, inserting each element into its proper position in the sorted portion of the array.
+Quick Sort: Quick sort is a divide-and-conquer algorithm that works by selecting a pivot element, partitioning the array around the pivot, and recursively sorting the subarrays.
+Merge Sort: Merge sort is a divide-and-conquer algorithm that works by dividing the array into smaller subarrays, sorting each subarray, and then merging the sorted subarrays back together.
+
+
+
+Step 2: Setup
+
+Create a class Order with attributes like orderId, customerName, and totalPrice:
+class Order {
+    private int orderId;
+    private String customerName;
+    private double totalPrice;
+
+    public Order(int orderId, String customerName, double totalPrice) {
+        this.orderId = orderId;
+        this.customerName = customerName;
+        this.totalPrice = totalPrice;
+    }
+
+    // Getters and setters
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+}
+
+
+
+Step 3: Implementation
+
+Implement Bubble Sort to sort orders by totalPrice:
+class BubbleSort {
+    public static void bubbleSort(Order[] orders) {
+        int n = orders.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (orders[j].getTotalPrice() > orders[j + 1].getTotalPrice()) {
+                    // Swap orders[j] and orders[j + 1]
+                    Order temp = orders[j];
+                    orders[j] = orders[j + 1];
+                    orders[j + 1] = temp;
+                }
+            }
+        }
+    }
+}
+
+Implement Quick Sort to sort orders by totalPrice:
+class QuickSort {
+    public static void quickSort(Order[] orders, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition(orders, low, high);
+            quickSort(orders, low, pivotIndex - 1);
+            quickSort(orders, pivotIndex + 1, high);
+        }
+    }
+
+    private static int partition(Order[] orders, int low, int high) {
+        Order pivot = orders[high];
+        int i = low - 1;
+        for (int j = low; j < high; j++) {
+            if (orders[j].getTotalPrice() < pivot.getTotalPrice()) {
+                i++;
+                // Swap orders[i] and orders[j]
+                Order temp = orders[i];
+                orders[i] = orders[j];
+                orders[j] = temp;
+            }
+        }
+        // Swap orders[i + 1] and orders[high]
+        Order temp = orders[i + 1];
+        orders[i + 1] = orders[high];
+        orders[high] = temp;
+        return i + 1;
+    }
+}
+
+
+Step 4: Analysis
+
+Compare the performance (time complexity) of Bubble Sort and Quick Sort:
+
+Bubble Sort: O(n^2) in all cases (best, average, and worst)
+Quick Sort: O(n log n) on average, O(n^2) in the worst case (when the pivot is chosen poorly)

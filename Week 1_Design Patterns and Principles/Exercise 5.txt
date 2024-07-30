@@ -1,0 +1,71 @@
+*******************Exercise 5: Implementing the Decorator Pattern*******************
+
+// Step 1: Create a new Java project named DecoratorPatternExample
+
+// Step 2: Define Component Interface
+interface Notifier {
+    void send(String message);
+}
+
+// Step 3: Implement Concrete Component
+class EmailNotifier implements Notifier {
+    @Override
+    public void send(String message) {
+        System.out.println("Sending email: " + message);
+    }
+}
+
+// Step 4: Implement Decorator Classes
+abstract class NotifierDecorator implements Notifier {
+    protected Notifier notifier;
+
+    public NotifierDecorator(Notifier notifier) {
+        this.notifier = notifier;
+    }
+}
+
+class SMSNotifierDecorator extends NotifierDecorator {
+    public SMSNotifierDecorator(Notifier notifier) {
+        super(notifier);
+    }
+
+    @Override
+    public void send(String message) {
+        notifier.send(message);
+        System.out.println("Sending SMS: " + message);
+    }
+}
+
+class SlackNotifierDecorator extends NotifierDecorator {
+    public SlackNotifierDecorator(Notifier notifier) {
+        super(notifier);
+    }
+
+    @Override
+    public void send(String message) {
+        notifier.send(message);
+        System.out.println("Sending Slack notification: " + message);
+    }
+}
+
+// Step 5: Test the Decorator Implementation
+public class DecoratorPatternExample {
+    public static void main(String[] args) {
+        // Create an EmailNotifier object
+        Notifier emailNotifier = new EmailNotifier();
+
+        // Create an SMSNotifierDecorator object that wraps the EmailNotifier object
+        Notifier smsNotifier = new SMSNotifierDecorator(emailNotifier);
+
+        // Create a SlackNotifierDecorator object that wraps the SMSNotifierDecorator object
+        Notifier slackNotifier = new SlackNotifierDecorator(smsNotifier);
+
+        // Send a notification using the SlackNotifierDecorator object
+        slackNotifier.send("Hello, world!");
+
+        // Output:
+        // Sending email: Hello, world!
+        // Sending SMS: Hello, world!
+        // Sending Slack notification: Hello, world!
+    }
+}

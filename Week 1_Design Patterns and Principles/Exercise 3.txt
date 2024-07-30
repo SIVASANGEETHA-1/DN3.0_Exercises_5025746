@@ -1,0 +1,101 @@
+***************************Exercise 3: Implementing the Builder Pattern********************************
+
+// BuilderPatternExample.java
+
+// Step 2: Define a Product Class
+class Computer {
+    private String cpu;
+    private int ram;
+    private String storage;
+    private boolean hasGraphicsCard;
+    private boolean hasSSD;
+
+    // Private constructor to ensure builder pattern is used
+    private Computer(Builder builder) {
+        this.cpu = builder.cpu;
+        this.ram = builder.ram;
+        this.storage = builder.storage;
+        this.hasGraphicsCard = builder.hasGraphicsCard;
+        this.hasSSD = builder.hasSSD;
+    }
+
+    // Step 3: Implement the Builder Class
+    public static class Builder {
+        private String cpu;
+        private int ram;
+        private String storage;
+        private boolean hasGraphicsCard;
+        private boolean hasSSD;
+
+        public Builder setCPU(String cpu) {
+            this.cpu = cpu;
+            return this;
+        }
+
+        public Builder setRAM(int ram) {
+            this.ram = ram;
+            return this;
+        }
+
+        public Builder setStorage(String storage) {
+            this.storage = storage;
+            return this;
+        }
+
+        public Builder setGraphicsCard(boolean hasGraphicsCard) {
+            this.hasGraphicsCard = hasGraphicsCard;
+            return this;
+        }
+
+        public Builder setSSD(boolean hasSSD) {
+            this.hasSSD = hasSSD;
+            return this;
+        }
+
+        public Computer build() {
+            return new Computer(this);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Computer{" +
+                "cpu='" + cpu + '\'' +
+                ", ram=" + ram +
+                ", storage='" + storage + '\'' +
+                ", hasGraphicsCard=" + hasGraphicsCard +
+                ", hasSSD=" + hasSSD +
+                '}';
+    }
+}
+
+// Step 5: Test the Builder Implementation
+public class BuilderPatternExample {
+    public static void main(String[] args) {
+        // Create a basic computer
+        Computer basicComputer = new Computer.Builder()
+                .setCPU("Intel Core i3")
+                .setRAM(8)
+                .setStorage("500GB HDD")
+                .build();
+        System.out.println("Basic Computer: " + basicComputer);
+
+        // Create a gaming computer
+        Computer gamingComputer = new Computer.Builder()
+                .setCPU("Intel Core i7")
+                .setRAM(16)
+                .setStorage("1TB SSD")
+                .setGraphicsCard(true)
+                .build();
+        System.out.println("Gaming Computer: " + gamingComputer);
+
+        // Create a server computer
+        Computer serverComputer = new Computer.Builder()
+                .setCPU("Intel Xeon")
+                .setRAM(32)
+                .setStorage("2TB HDD")
+                .setSSD(true)
+                .build();
+        System.out.println("Server Computer: " + serverComputer);
+    }
+}

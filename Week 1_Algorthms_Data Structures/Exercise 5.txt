@@ -1,0 +1,165 @@
+*************Exercise 5: Task Management System**************
+
+Step 1: Understand Linked Lists
+
+Types of Linked Lists:
+
+There are several types of linked lists, including:
+
+Singly Linked List: A singly linked list is a data structure in which each element points to the next element in the list. Each element is a separate object, and each element (called a "node") points to the next node in the sequence.
+Doubly Linked List: A doubly linked list is a data structure in which each element points to both the next element and the previous element in the list. This allows for efficient insertion and deletion of elements at any position in the list.
+
+
+Step 2: Setup
+
+Create a class Task with attributes like taskId, taskName, and status:
+class Task {
+    private int taskId;
+    private String taskName;
+    private String status;
+
+    public Task(int taskId, String taskName, String status) {
+        this.taskId = taskId;
+        this.taskName = taskName;
+        this.status = status;
+    }
+
+    // Getters and setters
+    public int getTaskId() {
+        return taskId;
+    }
+
+    public void setTaskId(int taskId) {
+        this.taskId = taskId;
+    }
+
+    public String getTaskName() {
+        return taskName;
+    }
+
+    public void setTaskName(String taskName) {
+        this.taskName = taskName;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}
+
+
+Step 3: Implementation
+
+Implement a singly linked list to manage tasks:
+class Node {
+    private Task task;
+    private Node next;
+
+    public Node(Task task) {
+        this.task = task;
+        this.next = null;
+    }
+
+    public Task getTask() {
+        return task;
+    }
+
+    public void setTask(Task task) {
+        this.task = task;
+    }
+
+    public Node getNext() {
+        return next;
+    }
+
+    public void setNext(Node next) {
+        this.next = next;
+    }
+}
+
+class TaskManagementSystem {
+    private Node head;
+
+    public TaskManagementSystem() {
+        head = null;
+    }
+
+    // Add a task to the linked list
+    public void addTask(Task task) {
+        Node node = new Node(task);
+        if (head == null) {
+            head = node;
+        } else {
+            Node current = head;
+            while (current.getNext() != null) {
+                current = current.getNext();
+            }
+            current.setNext(node);
+        }
+    }
+
+    // Search for a task by ID
+    public Task searchTask(int taskId) {
+        Node current = head;
+        while (current != null) {
+            if (current.getTask().getTaskId() == taskId) {
+                return current.getTask();
+            }
+            current = current.getNext();
+        }
+        return null;
+    }
+
+    // Traverse the linked list and print task information
+    public void traverseTasks() {
+        Node current = head;
+        while (current != null) {
+            System.out.println("Task ID: " + current.getTask().getTaskId());
+            System.out.println("Task Name: " + current.getTask().getTaskName());
+            System.out.println("Status: " + current.getTask().getStatus());
+            System.out.println();
+            current = current.getNext();
+        }
+    }
+
+    // Delete a task by ID
+    public void deleteTask(int taskId) {
+        if (head == null) {
+            return;
+        }
+        if (head.getTask().getTaskId() == taskId) {
+            head = head.getNext();
+            return;
+        }
+        Node current = head;
+        while (current.getNext() != null) {
+            if (current.getNext().getTask().getTaskId() == taskId) {
+                current.setNext(current.getNext().getNext());
+                return;
+            }
+            current = current.getNext();
+        }
+    }
+}
+
+
+
+
+Step 4: Analysis
+
+Analyze the time complexity of each operation:
+
+Add: O(n), since we need to traverse the linked list to find the last node and add the new node.
+Search: O(n), since we need to traverse the linked list to find the task with the matching ID.
+Traverse: O(n), since we need to traverse the entire linked list to print the task information.
+Delete: O(n), since we need to traverse the linked list to find the task with the matching ID and then delete it.
+Advantages of Linked Lists:
+
+Linked lists have several advantages over arrays for dynamic data:
+
+Dynamic size: Linked lists can grow or shrink dynamically as elements are added or removed.
+Efficient insertion and deletion: Linked lists allow for efficient insertion and deletion of elements at any position in the list.
+Good memory utilization: Linked lists can make efficient use of memory

@@ -1,0 +1,93 @@
+*********************Exercise 7: Implementing the Observer Pattern******************
+
+// ObserverPatternExample.java
+
+// Step 2: Define Subject Interface
+interface Stock {
+    void registerObserver(Observer observer);
+    void deregisterObserver(Observer observer);
+    void notifyObservers(String stockName, double price);
+}
+
+// Step 3: Implement Concrete Subject
+import java.util.ArrayList;
+import java.util.List;
+
+class StockMarket implements Stock {
+    private List<Observer> observers;
+    private String stockName;
+    private double price;
+
+    public StockMarket() {
+        this.observers = new ArrayList<>();
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void deregisterObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(String stockName, double price) {
+        this.stockName = stockName;
+        this.price = price;
+        for (Observer observer : observers) {
+            observer.update(stockName, price);
+        }
+    }
+
+    public void setStockPrice(String stockName, double price) {
+        notifyObservers(stockName, price);
+    }
+}
+
+// Step 4: Define Observer Interface
+interface Observer {
+    void update(String stockName, double price);
+}
+
+// Step 5: Implement Concrete Observers
+class MobileApp implements Observer {
+    @Override
+    public void update(String stockName, double price) {
+        System.out.println("Mobile App: Stock " + stockName + " price updated to " + price);
+    }
+}
+
+class WebApp implements Observer {
+    @Override
+    public void update(String stockName, double price) {
+        System.out.println("Web App: Stock " + stockName + " price updated to " + price);
+    }
+}
+
+// Step 6: Test the Observer Implementation
+public class ObserverPatternExample {
+    public static void main(String[] args) {
+        // Create stock market
+        StockMarket stockMarket = new StockMarket();
+
+        // Create observers
+        Observer mobileApp = new MobileApp();
+        Observer webApp = new WebApp();
+
+        // Register observers
+        stockMarket.registerObserver(mobileApp);
+        stockMarket.registerObserver(webApp);
+
+        // Update stock prices
+        stockMarket.setStockPrice("AAPL", 150.0);
+        stockMarket.setStockPrice("GOOG", 2500.0);
+
+        // Deregister observer
+        stockMarket.deregisterObserver(webApp);
+
+        // Update stock price again
+        stockMarket.setStockPrice("AAPL", 160.0);
+    }
+}

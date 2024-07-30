@@ -1,0 +1,59 @@
+***********************Exercise 8: Implementing the Strategy Pattern************************
+
+// StrategyPatternExample.java
+
+// Step 2: Define Strategy Interface
+interface PaymentStrategy {
+    void pay(double amount);
+}
+
+// Step 3: Implement Concrete Strategies
+class CreditCardPayment implements PaymentStrategy {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paying $" + amount + " using Credit Card");
+    }
+}
+
+class PayPalPayment implements PaymentStrategy {
+    @Override
+    public void pay(double amount) {
+        System.out.println("Paying $" + amount + " using PayPal");
+    }
+}
+
+// Step 4: Implement Context Class
+class PaymentContext {
+    private PaymentStrategy paymentStrategy;
+
+    public PaymentContext(PaymentStrategy paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
+    }
+
+    public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+        this.paymentStrategy = paymentStrategy;
+    }
+
+    public void executePayment(double amount) {
+        paymentStrategy.pay(amount);
+    }
+}
+
+// Step 5: Test the Strategy Implementation
+public class StrategyPatternExample {
+    public static void main(String[] args) {
+        // Create payment context
+        PaymentContext paymentContext = new PaymentContext(null);
+
+        // Create payment strategies
+        PaymentStrategy creditCardPayment = new CreditCardPayment();
+        PaymentStrategy payPalPayment = new PayPalPayment();
+
+        // Set and execute payment strategies
+        paymentContext.setPaymentStrategy(creditCardPayment);
+        paymentContext.executePayment(100.0);
+
+        paymentContext.setPaymentStrategy(payPalPayment);
+        paymentContext.executePayment(200.0);
+    }
+}

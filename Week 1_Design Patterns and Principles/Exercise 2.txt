@@ -1,0 +1,80 @@
+*********************Exercise 2: Implementing the Factory Method Pattern***********************
+
+// FactoryMethodPatternExample.java
+
+// Step 2: Define Document Classes
+interface Document {
+    void display();
+}
+
+interface WordDocument extends Document {}
+interface PdfDocument extends Document {}
+interface ExcelDocument extends Document {}
+
+// Step 3: Create Concrete Document Classes
+class WordDoc implements WordDocument {
+    @Override
+    public void display() {
+        System.out.println("Displaying Word Document");
+    }
+}
+
+class PdfDoc implements PdfDocument {
+    @Override
+    public void display() {
+        System.out.println("Displaying PDF Document");
+    }
+}
+
+class ExcelDoc implements ExcelDocument {
+    @Override
+    public void display() {
+        System.out.println("Displaying Excel Document");
+    }
+}
+
+// Step 4: Implement the Factory Method
+abstract class DocumentFactory {
+    abstract Document createDocument();
+}
+
+class WordDocumentFactory extends DocumentFactory {
+    @Override
+    Document createDocument() {
+        return new WordDoc();
+    }
+}
+
+class PdfDocumentFactory extends DocumentFactory {
+    @Override
+    Document createDocument() {
+        return new PdfDoc();
+    }
+}
+
+class ExcelDocumentFactory extends DocumentFactory {
+    @Override
+    Document createDocument() {
+        return new ExcelDoc();
+    }
+}
+
+// Step 5: Test the Factory Method Implementation
+public class FactoryMethodPatternExample {
+    public static void main(String[] args) {
+        // Create document factories
+        DocumentFactory wordFactory = new WordDocumentFactory();
+        DocumentFactory pdfFactory = new PdfDocumentFactory();
+        DocumentFactory excelFactory = new ExcelDocumentFactory();
+
+        // Create documents using factories
+        Document wordDoc = wordFactory.createDocument();
+        Document pdfDoc = pdfFactory.createDocument();
+        Document excelDoc = excelFactory.createDocument();
+
+        // Display documents
+        wordDoc.display();
+        pdfDoc.display();
+        excelDoc.display();
+    }
+}

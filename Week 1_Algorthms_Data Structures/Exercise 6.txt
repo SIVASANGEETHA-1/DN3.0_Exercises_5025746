@@ -1,0 +1,102 @@
+****************Exercise 6: Library Management System********************
+Step 1: Understand Search Algorithms
+
+Linear Search:
+
+Linear search is a simple search algorithm that checks each element of a list one by one until it finds the desired element. It is a brute-force approach that has a time complexity of O(n), where n is the size of the list.
+
+Binary Search:
+
+Binary search is a more efficient search algorithm that works by dividing the list into two halves and searching for the desired element in one of the halves. It requires the list to be sorted in ascending or descending order. The time complexity of binary search is O(log n), where n is the size of the list.
+
+Step 2: Setup
+
+Create a class Book with attributes like bookId, title, and author:
+class Book {
+    private int bookId;
+    private String title;
+    private String author;
+
+    public Book(int bookId, String title, String author) {
+        this.bookId = bookId;
+        this.title = title;
+        this.author = author;
+    }
+
+    // Getters and setters
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+}
+
+
+Step 3: Implementation
+
+Implement linear search to find books by title:
+class Library {
+    private Book[] books;
+
+    public Library(Book[] books) {
+        this.books = books;
+    }
+
+    // Linear search to find books by title
+    public Book linearSearchByTitle(String title) {
+        for (Book book : books) {
+            if (book.getTitle().equals(title)) {
+                return book;
+            }
+        }
+        return null;
+    }
+
+    // Binary search to find books by title (assuming the list is sorted)
+    public Book binarySearchByTitle(String title) {
+        int low = 0;
+        int high = books.length - 1;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (books[mid].getTitle().equals(title)) {
+                return books[mid];
+            } else if (books[mid].getTitle().compareTo(title) < 0) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return null;
+    }
+}
+
+
+Step 4: Analysis
+
+Compare the time complexity of linear and binary search:
+
+Linear Search: O(n), where n is the size of the list.
+Binary Search: O(log n), where n is the size of the list.
+When to use each algorithm based on the data set size and order:
+
+Linear Search: Use when the data set is small or unsorted. Linear search is simple to implement and works well for small data sets.
+Binary Search: Use when the data set is large and sorted. Binary search is more efficient than linear search for large data sets, but it requires the list to be sorted.

@@ -1,0 +1,98 @@
+***********************Exercise 10: Implementing the MVC Pattern*************************
+
+// MVCPatternExample.java
+
+// Step 2: Define Model Class
+class Student {
+    private String name;
+    private int id;
+    private double grade;
+
+    public Student(String name, int id, double grade) {
+        this.name = name;
+        this.id = id;
+        this.grade = grade;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public double getGrade() {
+        return grade;
+    }
+
+    public void setGrade(double grade) {
+        this.grade = grade;
+    }
+}
+
+// Step 3: Define View Class
+class StudentView {
+    public void displayStudentDetails(String name, int id, double grade) {
+        System.out.println("Student Details:");
+        System.out.println("Name: " + name);
+        System.out.println("ID: " + id);
+        System.out.println("Grade: " + grade);
+    }
+}
+
+// Step 4: Define Controller Class
+class StudentController {
+    private Student model;
+    private StudentView view;
+
+    public StudentController(Student model, StudentView view) {
+        this.model = model;
+        this.view = view;
+    }
+
+    public void setStudentName(String name) {
+        model.setName(name);
+    }
+
+    public void setStudentId(int id) {
+        model.setId(id);
+    }
+
+    public void setStudentGrade(double grade) {
+        model.setGrade(grade);
+    }
+
+    public void updateView() {
+        view.displayStudentDetails(model.getName(), model.getId(), model.getGrade());
+    }
+}
+
+// Step 5: Test the MVC Implementation
+public class MVCPatternExample {
+    public static void main(String[] args) {
+        // Create model
+        Student model = new Student("John Doe", 123, 85.0);
+
+        // Create view
+        StudentView view = new StudentView();
+
+        // Create controller
+        StudentController controller = new StudentController(model, view);
+
+        // Update model using controller
+        controller.setStudentName("Jane Doe");
+        controller.setStudentGrade(90.0);
+
+        // Update view using controller
+        controller.updateView();
+    }
+}

@@ -1,0 +1,65 @@
+*********************Exercise 7: Financial Forecasting***********************
+
+Step 1: Understand Recursive Algorithms
+
+Recursion:
+
+Recursion is a programming technique where a function calls itself repeatedly until it reaches a base case that stops the recursion. Recursion can simplify certain problems by breaking them down into smaller sub-problems that are easier to solve.
+
+How Recursion Simplifies Problems:
+
+Recursion can simplify problems in several ways:
+
+Divide and Conquer: Recursion allows us to divide a complex problem into smaller sub-problems that are easier to solve.
+Simplify Code: Recursion can simplify code by reducing the number of loops and conditional statements.
+Elegant Solutions: Recursion can lead to elegant and concise solutions that are easy to understand and maintain.
+
+
+
+Step 2: Setup
+
+Create a method to calculate the future value using a recursive approach:
+public class FinancialForecastingTool {
+    public double calculateFutureValue(double presentValue, double growthRate, int years) {
+        // Recursive implementation to calculate future value
+    }
+}
+
+Step 3: Implementation
+
+Implement a recursive algorithm to predict future values based on past growth rates:
+public class FinancialForecastingTool {
+    public double calculateFutureValue(double presentValue, double growthRate, int years) {
+        if (years == 0) {
+            return presentValue;
+        } else {
+            return calculateFutureValue(presentValue * (1 + growthRate), growthRate, years - 1);
+        }
+    }
+}
+
+
+Step 4: Analysis
+
+Time Complexity:
+
+The time complexity of the recursive algorithm is O(n), where n is the number of years. This is because the function calls itself recursively n times to calculate the future value.
+
+Optimizing the Recursive Solution:
+
+To optimize the recursive solution and avoid excessive computation, we can use memoization or dynamic programming techniques. Memoization involves storing the results of expensive function calls and reusing them when the same inputs occur again. Dynamic programming involves breaking down the problem into smaller sub-problems and solving each sub-problem only once.
+
+In this case, we can use memoization to store the results of previous calculations and avoid recalculating them. Here's an updated implementation:
+public class FinancialForecastingTool {
+    private Map<Integer, Double> memo = new HashMap<>();
+
+    public double calculateFutureValue(double presentValue, double growthRate, int years) {
+        if (memo.containsKey(years)) {
+            return memo.get(years);
+        } else {
+            double futureValue = calculateFutureValue(presentValue * (1 + growthRate), growthRate, years - 1);
+            memo.put(years, futureValue);
+            return futureValue;
+        }
+    }
+}

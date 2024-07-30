@@ -1,0 +1,87 @@
+***************Exercise 4: Implementing the Adapter Pattern***************
+
+// AdapterPatternExample.java
+
+// Step 2: Define Target Interface
+interface PaymentProcessor {
+    void processPayment(String amount);
+}
+
+// Step 3: Implement Adaptee Classes
+class PayPalGateway {
+    public void payWithPayPal(String amount) {
+        System.out.println("Processing payment of " + amount + " using PayPal");
+    }
+}
+
+class StripeGateway {
+    public void chargeWithStripe(String amount) {
+        System.out.println("Processing payment of " + amount + " using Stripe");
+    }
+}
+
+class BankTransferGateway {
+    public void transferWithBank(String amount) {
+        System.out.println("Processing payment of " + amount + " using Bank Transfer");
+    }
+}
+
+// Step 4: Implement the Adapter Class
+class PayPalAdapter implements PaymentProcessor {
+    private PayPalGateway paypalGateway;
+
+    public PayPalAdapter(PayPalGateway paypalGateway) {
+        this.paypalGateway = paypalGateway;
+    }
+
+    @Override
+    public void processPayment(String amount) {
+        paypalGateway.payWithPayPal(amount);
+    }
+}
+
+class StripeAdapter implements PaymentProcessor {
+    private StripeGateway stripeGateway;
+
+    public StripeAdapter(StripeGateway stripeGateway) {
+        this.stripeGateway = stripeGateway;
+    }
+
+    @Override
+    public void processPayment(String amount) {
+        stripeGateway.chargeWithStripe(amount);
+    }
+}
+
+class BankTransferAdapter implements PaymentProcessor {
+    private BankTransferGateway bankTransferGateway;
+
+    public BankTransferAdapter(BankTransferGateway bankTransferGateway) {
+        this.bankTransferGateway = bankTransferGateway;
+    }
+
+    @Override
+    public void processPayment(String amount) {
+        bankTransferGateway.transferWithBank(amount);
+    }
+}
+
+// Step 5: Test the Adapter Implementation
+public class AdapterPatternExample {
+    public static void main(String[] args) {
+        // Create payment gateways
+        PayPalGateway paypalGateway = new PayPalGateway();
+        StripeGateway stripeGateway = new StripeGateway();
+        BankTransferGateway bankTransferGateway = new BankTransferGateway();
+
+        // Create adapters for each payment gateway
+        PaymentProcessor paypalAdapter = new PayPalAdapter(paypalGateway);
+        PaymentProcessor stripeAdapter = new StripeAdapter(stripeGateway);
+        PaymentProcessor bankTransferAdapter = new BankTransferAdapter(bankTransferGateway);
+
+        // Process payments using adapters
+        paypalAdapter.processPayment("100.00");
+        stripeAdapter.processPayment("200.00");
+        bankTransferAdapter.processPayment("300.00");
+    }
+}

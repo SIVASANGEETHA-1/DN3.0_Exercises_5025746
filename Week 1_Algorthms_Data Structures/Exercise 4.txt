@@ -1,0 +1,140 @@
+*************Exercise 4: Employee Management System***************
+
+Step 1: Understand Array Representation
+
+Array Representation in Memory:
+
+In computer memory, an array is represented as a contiguous block of memory locations, each of which can store a value of a specific data type. The memory locations are indexed by a numerical value, starting from 0, which allows for efficient access and manipulation of the array elements.
+
+Advantages of Arrays:
+
+Arrays have several advantages that make them a popular data structure:
+
+Efficient memory usage: Arrays store elements in contiguous memory locations, which reduces memory fragmentation and improves memory utilization.
+Fast access: Arrays provide fast access to elements using their index, which makes them suitable for applications that require frequent access to elements.
+Simple implementation: Arrays have a simple implementation, which makes them easy to understand and work with.
+
+
+Step 2: Setup
+
+Create a class Employee with attributes like employeeId, name, position, and salary:
+class Employee {
+    private int employeeId;
+    private String name;
+    private String position;
+    private double salary;
+
+    public Employee(int employeeId, String name, String position, double salary) {
+        this.employeeId = employeeId;
+        this.name = name;
+        this.position = position;
+        this.salary = salary;
+    }
+
+    // Getters and setters
+    public int getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(int employeeId) {
+        this.employeeId = employeeId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+}
+
+Step 3: Implementation
+
+Use an array to store employee records:
+class EmployeeManagementSystem {
+    private Employee[] employees;
+    private int size;
+
+    public EmployeeManagementSystem(int capacity) {
+        employees = new Employee[capacity];
+        size = 0;
+    }
+
+    // Add an employee to the array
+    public void addEmployee(Employee employee) {
+        if (size < employees.length) {
+            employees[size] = employee;
+            size++;
+        } else {
+            System.out.println("Array is full. Cannot add more employees.");
+        }
+    }
+
+    // Search for an employee by ID
+    public Employee searchEmployee(int employeeId) {
+        for (int i = 0; i < size; i++) {
+            if (employees[i].getEmployeeId() == employeeId) {
+                return employees[i];
+            }
+        }
+        return null;
+    }
+
+    // Traverse the array and print employee information
+    public void traverseEmployees() {
+        for (int i = 0; i < size; i++) {
+            System.out.println("Employee ID: " + employees[i].getEmployeeId());
+            System.out.println("Name: " + employees[i].getName());
+            System.out.println("Position: " + employees[i].getPosition());
+            System.out.println("Salary: " + employees[i].getSalary());
+            System.out.println();
+        }
+    }
+
+    // Delete an employee by ID
+    public void deleteEmployee(int employeeId) {
+        for (int i = 0; i < size; i++) {
+            if (employees[i].getEmployeeId() == employeeId) {
+                // Shift elements to the left
+                for (int j = i; j < size - 1; j++) {
+                    employees[j] = employees[j + 1];
+                }
+                size--;
+                return;
+            }
+        }
+    }
+}
+
+Step 4: Analysis
+
+Analyze the time complexity of each operation:
+
+Add: O(1) amortized, since we only need to increment the size variable and assign the new employee to the next available index.
+Search: O(n), since we need to iterate through the entire array to find the employee with the matching ID.
+Traverse: O(n), since we need to iterate through the entire array to print the employee information.
+Delete: O(n), since we need to iterate through the entire array to find the employee with the matching ID and then shift the elements to the left.
+Limitations of Arrays:
+
+Arrays have several limitations that make them less suitable for certain applications:
+
+Fixed size: Arrays have a fixed size that is determined at compile-time, which makes it difficult to dynamically add or remove elements.
+Slow search and delete: Arrays have a slow search and delete time complexity, which makes them less suitable for applications that require frequent searches or deletions.
+No built-in support for operations: Arrays do not have built-in support for operations like sorting
